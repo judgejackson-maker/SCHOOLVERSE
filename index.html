@@ -3,191 +3,187 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <title>SCHOOLVERSE</title>
 <style>
 *{box-sizing:border-box}
 body{margin:0;background:#10111b;color:#f7f7ff;font-family:Arial,sans-serif}
-header{background:#191a2a;padding:16px 5%;display:flex;align-items:center;justify-content:space-between;gap:15px;flex-wrap:wrap;border-bottom:1px solid #303149;position:sticky;top:0;z-index:5}
+header{background:#191a2b;padding:15px 4%;display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;position:sticky;top:0;z-index:10;border-bottom:1px solid #303149}
 .logo{font-size:25px;font-weight:900;color:#a78bfa}
-nav{display:flex;gap:8px;flex-wrap:wrap}
-button{cursor:pointer;border:0;border-radius:10px;padding:10px 14px;background:#292b40;color:white;font-weight:bold}
-button:hover{filter:brightness(1.2)}
-.active,.primary{background:#8060ed}
-input,textarea{background:#202235;border:1px solid #383a53;color:white;padding:12px;border-radius:10px;width:100%;font:inherit}
-.layout{max-width:1200px;margin:25px auto;padding:0 18px;display:grid;grid-template-columns:210px minmax(0,1fr) 240px;gap:20px}
-.panel,.card{background:#191a2a;border:1px solid #303149;border-radius:16px;padding:17px;margin-bottom:15px}
-h2,h3{margin-top:0}
-.small{color:#a6a7bb;font-size:13px}
+nav{display:flex;gap:7px;flex-wrap:wrap}
+button{border:0;border-radius:10px;padding:10px 14px;background:#292b40;color:white;font-weight:bold;cursor:pointer}
+button:hover{background:#514477}
+.primary,.active{background:#8060ed}
+.layout{max-width:1150px;margin:22px auto;padding:0 15px;display:grid;grid-template-columns:190px minmax(0,1fr);gap:18px}
+.panel,.post,.video-card{background:#191a2b;border:1px solid #303149;border-radius:15px;padding:17px;margin-bottom:15px}
 .side button{display:block;width:100%;text-align:left;margin:7px 0}
 .page{display:none}.page.show{display:block}
-.post{background:#191a2a;border:1px solid #303149;padding:17px;border-radius:15px;margin:14px 0}
-.posthead{display:flex;justify-content:space-between;align-items:center}
-.avatar{background:#8060ed;border-radius:50%;width:38px;height:38px;display:inline-grid;place-items:center;font-weight:bold;margin-right:8px}
-.posttext{line-height:1.5;margin:15px 0}
+input,textarea{width:100%;padding:12px;border-radius:10px;background:#202235;border:1px solid #393b55;color:white;font:inherit}
+.small{font-size:13px;color:#a5a6bc}
+.tag{display:inline-block;background:#332b50;color:#d3c6ff;padding:5px 9px;border-radius:20px;font-size:12px}
+.post{line-height:1.5}
+.posthead{display:flex;justify-content:space-between;gap:10px}
 .actions{display:flex;gap:8px;flex-wrap:wrap}
-.actions button{background:#292b40}
-.gamegrid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:15px}
-.game{background:#202235;border:1px solid #383a53;border-radius:15px;padding:20px;text-align:center}
-.game .emoji{font-size:55px;margin:12px}
-.score{font-size:35px;font-weight:900;color:#a78bfa;margin:12px}
-.result{min-height:25px;color:#c4b5fd}
-.tag{display:inline-block;background:#30294b;color:#c4b5fd;padding:5px 9px;border-radius:20px;font-size:12px}
-footer{text-align:center;color:#77798f;padding:30px}
-@media(max-width:850px){.layout{grid-template-columns:1fr}.side{display:none}.gamegrid{grid-template-columns:1fr}}
+.gamegrid,.videogrid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
+.game{background:#202235;padding:18px;border-radius:14px;text-align:center}
+.emoji{font-size:48px;margin:8px}
+.score{font-size:32px;color:#b7a0ff;font-weight:900;margin:10px}
+.result{color:#c5b7ff;min-height:24px}
+video{width:100%;border-radius:12px;background:#080910;display:block}
+.video-card h3{margin-bottom:6px}
+footer{text-align:center;color:#77798f;padding:25px}
+@media(max-width:750px){.layout{grid-template-columns:1fr}.side{display:none}.videogrid,.gamegrid{grid-template-columns:1fr}header{position:relative}}
 </style>
 </head>
 <body>
 <header>
-  <div class="logo">🌌 SCHOOLVERSE</div>
-  <nav>
-    <button class="active" onclick="showPage('home',this)">🏠 Home</button>
-    <button onclick="showPage('sports',this)">🏆 Sports</button>
-    <button onclick="showPage('fun',this)">🤣 Fun Zone</button>
-    <button onclick="showPage('profile',this)">👤 Profile</button>
-  </nav>
+ <div class="logo">🌌 SCHOOLVERSE</div>
+ <nav>
+  <button class="active" onclick="showPage('home',this)">🏠 Home</button>
+  <button onclick="showPage('videos',this)">🎬 Funny Vids</button>
+  <button onclick="showPage('sports',this)">🏆 Sports</button>
+  <button onclick="showPage('fun',this)">🤣 Fun Zone</button>
+  <button onclick="showPage('profile',this)">👤 Profile</button>
+ </nav>
 </header>
 
 <div class="layout">
 <aside class="side">
-  <div class="panel">
-    <h3>🌟 Your space</h3>
-    <button onclick="showPage('home')">🏠 Feed</button>
-    <button onclick="showPage('sports')">🏀 Sports games</button>
-    <button onclick="showPage('fun')">😂 Fun zone</button>
-    <button onclick="showPage('profile')">👤 My profile</button>
-  </div>
-  <div class="panel">
-    <h3>🔥 Trending</h3>
-    <p>#Basketball</p>
-    <p>#FunnyVideos</p>
-    <p>#SchoolLife</p>
-    <p>#Football</p>
-  </div>
+ <div class="panel">
+  <h3>🌟 Explore</h3>
+  <button onclick="showPage('home')">🏠 Home feed</button>
+  <button onclick="showPage('videos')">🎬 Funny videos</button>
+  <button onclick="showPage('sports')">🏀 Sports games</button>
+  <button onclick="showPage('fun')">🤣 Fun zone</button>
+  <button onclick="showPage('profile')">👤 Profile</button>
+ </div>
+ <div class="panel">
+  <h3>🔥 Trending</h3>
+  <p>#FunnyVids</p><p>#Basketball</p><p>#SchoolLife</p>
+ </div>
 </aside>
 
 <main>
 <section id="home" class="page show">
-  <div class="panel">
-    <span class="tag">WELCOME TO SCHOOLVERSE</span>
-    <h2>What's happening? 👀</h2>
-    <p class="small">Share something funny, cool, or interesting.</p>
-    <textarea id="postInput" rows="3" placeholder="Write something..."></textarea>
-    <br><br>
-    <button class="primary" onclick="makePost()">＋ Create post</button>
+ <div class="panel">
+  <span class="tag">WELCOME TO SCHOOLVERSE</span>
+  <h2>What's happening? 👀</h2>
+  <textarea id="postInput" rows="3" placeholder="Share something fun..."></textarea>
+  <br><br><button class="primary" onclick="makePost()">＋ Post</button>
+ </div>
+ <div id="feed"></div>
+</section>
+
+<section id="videos" class="page">
+ <div class="panel">
+  <span class="tag">🎬 VIDEO CENTER</span>
+  <h2>FUNNY VIDS 😂</h2>
+  <p class="small">Watch some fun clips. Videos need an internet connection.</p>
+  <input id="videoSearch" placeholder="Search video titles..." oninput="filterVideos()">
+ </div>
+ <div class="videogrid" id="videoGrid">
+  <div class="video-card" data-title="funny animation">
+   <h3>😂 Funny Animation</h3>
+   <video controls preload="none" playsinline>
+    <source src="https://interactive-examples.mdn.mozilla.net/media/cc0-videos/flower.mp4" type="video/mp4">
+   </video>
+   <p class="small">A sample video clip.</p>
   </div>
-  <div id="feed"></div>
+  <div class="video-card" data-title="cool video">
+   <h3>🌈 Cool Clip</h3>
+   <video controls preload="none" playsinline>
+    <source src="https://www.w3schools.com/html/mov_bbb.mp4" type="video/mp4">
+   </video>
+   <p class="small">A sample video clip.</p>
+  </div>
+ </div>
+ <div class="panel">
+  <h3>➕ Add your own video</h3>
+  <p class="small">Choose a video from your device. It previews only on this device.</p>
+  <input type="file" id="videoUpload" accept="video/*" onchange="previewUpload(event)">
+  <div id="uploadPreview"></div>
+ </div>
 </section>
 
 <section id="sports" class="page">
-  <div class="panel">
-    <span class="tag">PLAYABLE MINI GAMES</span>
-    <h2>🏆 SCHOOLVERSE SPORTS</h2>
-    <p class="small">Play, beat your high score, and challenge your friends!</p>
+ <div class="panel">
+  <span class="tag">PLAYABLE MINI GAMES</span>
+  <h2>🏆 SCHOOLVERSE SPORTS</h2>
+  <p class="small">Beat your high scores!</p>
+ </div>
+ <div class="gamegrid">
+  <div class="game">
+   <div class="emoji">🏀</div><h3>Basketball</h3>
+   <p>Can you score?</p><div class="score" id="basketScore">0</div>
+   <button class="primary" onclick="shot()">SHOOT!</button>
+   <p class="result" id="basketResult">Take your shot!</p>
   </div>
-  <div class="gamegrid">
-    <div class="game">
-      <div class="emoji">🏀</div>
-      <h3>Basketball Challenge</h3>
-      <p>How many baskets can you score?</p>
-      <div class="score" id="basketScore">0</div>
-      <button class="primary" onclick="basketShot()">SHOOT!</button>
-      <p class="result" id="basketResult">Take your shot!</p>
-    </div>
-    <div class="game">
-      <div class="emoji">⚽</div>
-      <h3>Penalty Panic</h3>
-      <p>Choose where to kick the ball!</p>
-      <div class="score" id="goalScore">0</div>
-      <div class="actions" style="justify-content:center">
-        <button onclick="kick('Left')">⬅️ Left</button>
-        <button onclick="kick('Center')">⬆️ Center</button>
-        <button onclick="kick('Right')">➡️ Right</button>
-      </div>
-      <p class="result" id="goalResult">Beat the goalie!</p>
-    </div>
-    <div class="game">
-      <div class="emoji">🏈</div>
-      <h3>Football Accuracy</h3>
-      <p>Test your throwing accuracy!</p>
-      <div class="score" id="footballScore">0</div>
-      <button class="primary" onclick="throwBall()">THROW!</button>
-      <p class="result" id="footballResult">Can you hit the target?</p>
-    </div>
-    <div class="game">
-      <div class="emoji">🎾</div>
-      <h3>Tennis Reaction</h3>
-      <p>Click when the ball appears!</p>
-      <div class="score" id="tennisScore">0</div>
-      <button class="primary" onclick="tennisStart()">START</button>
-      <button onclick="tennisHit()">HIT!</button>
-      <p class="result" id="tennisResult">Ready?</p>
-    </div>
+  <div class="game">
+   <div class="emoji">⚽</div><h3>Penalty Panic</h3>
+   <p>Choose where to kick!</p><div class="score" id="goalScore">0</div>
+   <button onclick="kick('Left')">⬅️</button>
+   <button onclick="kick('Center')">⬆️</button>
+   <button onclick="kick('Right')">➡️</button>
+   <p class="result" id="goalResult">Beat the goalie!</p>
   </div>
+  <div class="game">
+   <div class="emoji">🏈</div><h3>Football Accuracy</h3>
+   <div class="score" id="footballScore">0</div>
+   <button class="primary" onclick="throwBall()">THROW!</button>
+   <p class="result" id="footballResult">Hit the target!</p>
+  </div>
+  <div class="game">
+   <div class="emoji">🎾</div><h3>Tennis Reaction</h3>
+   <div class="score" id="tennisScore">0</div>
+   <button class="primary" onclick="tennisStart()">START</button>
+   <button onclick="tennisHit()">HIT!</button>
+   <p class="result" id="tennisResult">Ready?</p>
+  </div>
+ </div>
 </section>
 
 <section id="fun" class="page">
-  <div class="panel">
-    <span class="tag">THE FUN ZONE</span>
-    <h2>🤣 Welcome to the chaos</h2>
-    <div class="game">
-      <div class="emoji">😂</div>
-      <h3>Random Joke Machine</h3>
-      <p id="joke">Click the button for a joke!</p>
-      <button class="primary" onclick="newJoke()">MAKE ME LAUGH</button>
-    </div>
-  </div>
-  <div class="panel">
-    <h3>🎲 Random Challenge</h3>
-    <p id="challenge">Get a random challenge!</p>
-    <button onclick="newChallenge()">GENERATE CHALLENGE</button>
-    <p class="small">Keep challenges friendly, safe, and school-appropriate.</p>
-  </div>
-  <div class="panel">
-    <h3>💬 Random Question</h3>
-    <p id="question">What's your favorite sport?</p>
-    <button onclick="newQuestion()">NEW QUESTION</button>
-  </div>
+ <div class="panel">
+  <span class="tag">THE FUN ZONE</span><h2>🤣 Welcome to the chaos</h2>
+  <h3>Random Joke Machine</h3>
+  <p id="joke">Click for a joke!</p>
+  <button class="primary" onclick="newJoke()">MAKE ME LAUGH</button>
+ </div>
+ <div class="panel">
+  <h3>🎲 Random Challenge</h3><p id="challenge">Get a challenge!</p>
+  <button onclick="newChallenge()">GENERATE</button>
+ </div>
+ <div class="panel">
+  <h3>💬 Random Question</h3><p id="question">What is your favorite sport?</p>
+  <button onclick="newQuestion()">NEW QUESTION</button>
+ </div>
 </section>
 
 <section id="profile" class="page">
-  <div class="panel">
-    <span class="tag">YOUR PROFILE</span>
-    <h2>👤 My Profile</h2>
-    <label>Display name</label>
-    <input id="username" placeholder="Choose a nickname">
-    <br><br>
-    <button class="primary" onclick="saveProfile()">SAVE PROFILE</button>
-    <h3 id="profileName">Welcome, Player!</h3>
-    <p class="small">This demo profile is saved on this device only.</p>
-  </div>
-  <div class="panel">
-    <h3>🌟 About SCHOOLVERSE</h3>
-    <p>A place to share, play, laugh, and connect.</p>
-    <p class="small">Be kind. Respect others. Keep personal information private.</p>
-  </div>
+ <div class="panel">
+  <h2>👤 Your Profile</h2>
+  <input id="username" placeholder="Your display name">
+  <br><br><button class="primary" onclick="saveProfile()">SAVE</button>
+  <h3 id="profileName">Welcome, Player!</h3>
+  <p class="small">Demo profile saved on this device.</p>
+ </div>
+ <div class="panel">
+  <h3>🎮 Other websites</h3>
+  <p>Open Classroom 6x in another tab:</p>
+  <input id="classroomURL" placeholder="Paste the Classroom 6x web address">
+  <br><br>
+  <button class="primary" onclick="openClassroom()">OPEN CLASSROOM 6X ↗</button>
+  <p class="small">Only use websites allowed by your school.</p>
+ </div>
 </section>
 </main>
-
-<aside class="side">
-  <div class="panel">
-    <h3>🎯 Today's goal</h3>
-    <p>Try all four sports games!</p>
-    <span class="tag">YOU GOT THIS</span>
-  </div>
-  <div class="panel">
-    <h3>💡 Schoolverse tip</h3>
-    <p class="small">Keep your posts positive and never share private information.</p>
-  </div>
-</aside>
 </div>
-<footer>🌌 SCHOOLVERSE · Made for creativity, fun, and community</footer>
+<footer>🌌 SCHOOLVERSE · Share · Play · Laugh</footer>
 
 <script>
 let posts=JSON.parse(localStorage.getItem('sv_posts')||'[]');
 let name=localStorage.getItem('sv_name')||'Player';
-let basket=0,goals=0,football=0,tennis=0;
-let tennisReady=false;
+let basket=0,goals=0,football=0,tennis=0,ready=false,timer;
 
 function showPage(id,btn){
  document.querySelectorAll('.page').forEach(p=>p.classList.remove('show'));
@@ -195,100 +191,102 @@ function showPage(id,btn){
  document.querySelectorAll('nav button').forEach(b=>b.classList.remove('active'));
  if(btn)btn.classList.add('active');
 }
-function savePosts(){localStorage.setItem('sv_posts',JSON.stringify(posts))}
 function makePost(){
- const input=document.getElementById('postInput');
- const value=input.value.trim();
- if(!value)return alert('Write something first!');
- posts.unshift({name,text:value,likes:0});
- savePosts();input.value='';renderFeed();
+ let input=document.getElementById('postInput');
+ if(!input.value.trim())return;
+ posts.unshift({name,text:input.value.trim(),likes:0});
+ localStorage.setItem('sv_posts',JSON.stringify(posts));
+ input.value='';renderFeed();
 }
 function renderFeed(){
- const feed=document.getElementById('feed');
- feed.innerHTML='';
- if(posts.length===0){
- feed.innerHTML='<div class="panel"><h3>🌟 Your feed is waiting!</h3><p>Be the first to make a post.</p></div>';
- return;
- }
- posts.forEach((p,i)=>{
- const article=document.createElement('article');
- article.className='post';
- const head=document.createElement('div');head.className='posthead';
- const who=document.createElement('strong');who.textContent='🟣 '+p.name;
- const time=document.createElement('span');time.className='small';time.textContent='SCHOOLVERSE';
- head.append(who,time);
- const body=document.createElement('p');body.className='posttext';body.textContent=p.text;
- const actions=document.createElement('div');actions.className='actions';
- const like=document.createElement('button');like.textContent='❤️ Like ('+p.likes+')';like.onclick=()=>{p.likes++;savePosts();renderFeed()};
- const report=document.createElement('button');report.textContent='⚑ Report';report.onclick=()=>alert('Thanks. In a real school community, reports should go to a trusted moderator.');
- actions.append(like,report);article.append(head,body,actions);feed.append(article);
+ let feed=document.getElementById('feed');feed.replaceChildren();
+ if(!posts.length){feed.innerHTML='<div class="panel"><h3>🌟 Your feed is waiting!</h3>Be the first to post.</div>';return}
+ posts.forEach(p=>{
+  let article=document.createElement('article');article.className='post';
+  let title=document.createElement('strong');title.textContent='🟣 '+p.name;
+  let body=document.createElement('p');body.textContent=p.text;
+  let like=document.createElement('button');like.textContent='❤️ Like ('+p.likes+')';
+  like.onclick=()=>{p.likes++;localStorage.setItem('sv_posts',JSON.stringify(posts));renderFeed()};
+  article.append(title,body,like);feed.append(article);
  });
 }
 function saveProfile(){
- const v=document.getElementById('username').value.trim();
- if(!v)return alert('Enter a nickname first!');
+ let v=document.getElementById('username').value.trim();if(!v)return;
  name=v;localStorage.setItem('sv_name',name);
  document.getElementById('profileName').textContent='Welcome, '+name+'!';
 }
-function basketShot(){
- const made=Math.random()<.55;
- if(made){basket++;document.getElementById('basketResult').textContent='SWISH! 🏀';}
- else document.getElementById('basketResult').textContent='Oof! Try again!';
+function shot(){
+ if(Math.random()<.55){basket++;document.getElementById('basketResult').textContent='SWISH! 🏀'}
+ else document.getElementById('basketResult').textContent='MISSED! TRY AGAIN!';
  document.getElementById('basketScore').textContent=basket;
 }
-function kick(direction){
- const goalie=['Left','Center','Right'][Math.floor(Math.random()*3)];
- if(direction!==goalie){goals++;document.getElementById('goalResult').textContent='GOOOOOAL! ⚽';}
- else document.getElementById('goalResult').textContent='SAVED BY THE GOALIE! 🧤';
+function kick(dir){
+ let goalie=['Left','Center','Right'][Math.floor(Math.random()*3)];
+ if(dir!==goalie){goals++;document.getElementById('goalResult').textContent='GOOOOOAL! ⚽'}
+ else document.getElementById('goalResult').textContent='SAVED! 🧤';
  document.getElementById('goalScore').textContent=goals;
 }
 function throwBall(){
- const hit=Math.random()<.45;
- if(hit){football++;document.getElementById('footballResult').textContent='PERFECT THROW! 🏈';}
- else document.getElementById('footballResult').textContent='Just missed! Try again!';
+ if(Math.random()<.45){football++;document.getElementById('footballResult').textContent='PERFECT THROW! 🏈'}
+ else document.getElementById('footballResult').textContent='JUST MISSED!';
  document.getElementById('footballScore').textContent=football;
 }
-let tennisTimer;
 function tennisStart(){
- tennisReady=false;
- document.getElementById('tennisResult').textContent='Wait for the signal...';
- clearTimeout(tennisTimer);
- tennisTimer=setTimeout(()=>{
- tennisReady=true;
- document.getElementById('tennisResult').textContent='🎾 HIT NOW!';
- },1500+Math.random()*3000);
+ clearTimeout(timer);ready=false;
+ document.getElementById('tennisResult').textContent='Wait for it...';
+ timer=setTimeout(()=>{ready=true;document.getElementById('tennisResult').textContent='🎾 HIT NOW!'},1500+Math.random()*3000);
 }
 function tennisHit(){
- if(!tennisReady){document.getElementById('tennisResult').textContent='Too early! Press START again.';clearTimeout(tennisTimer);return}
- tennis++;tennisReady=false;
+ if(!ready){clearTimeout(timer);document.getElementById('tennisResult').textContent='Too early! Try again.';return}
+ ready=false;tennis++;
  document.getElementById('tennisScore').textContent=tennis;
  document.getElementById('tennisResult').textContent='NICE REACTION! ⚡';
 }
 const jokes=[
 'Why did the basketball player bring string? To tie the score! 🏀',
 'Why was the computer cold? It left its Windows open! 🥶',
-'Why did the student eat their homework? The teacher said it was a piece of cake! 🍰',
+'Why did the student eat their homework? It was a piece of cake! 🍰',
 'What do you call a sleeping dinosaur? A dino-snore! 🦖',
 'Why did the soccer ball quit? It was tired of being kicked around! ⚽'
 ];
 const challenges=[
-'Make a friendly sports quiz for your friends.',
-'Draw a mascot for SCHOOLVERSE.',
-'Come up with a name for a new basketball team.',
-'Share a fun fact about your favorite sport.',
-'Invent a new school-safe mini game.'
+'Invent a new school mascot.',
+'Make a friendly sports quiz.',
+'Think of a funny team name.',
+'Share a fun fact about a sport.',
+'Invent a new mini game.'
 ];
 const questions=[
 'If you could invent a sport, what would it be?',
-'What is the funniest school-appropriate joke you know?',
-'What game should SCHOOLVERSE add next?',
-'Which sport would you watch live?',
+'What is your favorite game?',
+'What should SCHOOLVERSE add next?',
 'What would your dream team be called?'
 ];
-function pick(arr){return arr[Math.floor(Math.random()*arr.length)]}
+function pick(a){return a[Math.floor(Math.random()*a.length)]}
 function newJoke(){document.getElementById('joke').textContent=pick(jokes)}
 function newChallenge(){document.getElementById('challenge').textContent=pick(challenges)}
 function newQuestion(){document.getElementById('question').textContent=pick(questions)}
+function filterVideos(){
+ let q=document.getElementById('videoSearch').value.toLowerCase();
+ document.querySelectorAll('#videoGrid .video-card').forEach(card=>{
+  card.style.display=card.dataset.title.includes(q)?'block':'none';
+ });
+}
+function previewUpload(e){
+ let file=e.target.files[0];if(!file)return;
+ let url=URL.createObjectURL(file);
+ let v=document.createElement('video');v.controls=true;v.preload='none';v.playsInline=true;v.src=url;
+ let box=document.getElementById('uploadPreview');box.replaceChildren(v);
+}
+function openClassroom(){
+ let url=document.getElementById('classroomURL').value.trim();
+ if(!/^https?:\/\//i.test(url)){alert('Paste the full website address, starting with https://');return}
+ try{
+  let parsed=new URL(url);
+  if(parsed.protocol!=='https:'){alert('Please use a secure https:// address.');return}
+  window.open(parsed.href,'_blank','noopener,noreferrer');
+ }catch(e){alert('That address does not look right.')}
+}
 document.getElementById('username').value=name;
 document.getElementById('profileName').textContent='Welcome, '+name+'!';
 renderFeed();
