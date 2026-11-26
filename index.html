@@ -1,0 +1,308 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>SCHOOLVERSE</title>
+<style>
+*{box-sizing:border-box}
+body{margin:0;background:#090b16;color:#f5f5ff;font-family:Arial,sans-serif}
+button,input,textarea{font:inherit}
+button{cursor:pointer;color:white;border:0}
+header{height:70px;background:#111426;border-bottom:1px solid #292e49;display:flex;align-items:center;padding:0 5%;gap:20px;position:sticky;top:0;z-index:10}
+.logo{font-size:24px;font-weight:900;background:linear-gradient(90deg,#9275ff,#ed70c5,#5ed9ed);color:transparent;background-clip:text}
+header input{flex:1;max-width:450px;background:#20243a;border:1px solid #343957;padding:12px;border-radius:12px;color:white}
+button.primary{background:linear-gradient(100deg,#795df4,#c05fdb);padding:11px 17px;border-radius:11px;font-weight:bold}
+.layout{max-width:1400px;margin:25px auto;display:grid;grid-template-columns:210px minmax(0,700px) 260px;gap:22px;padding:0 18px}
+.side,.right{position:sticky;top:90px;height:max-content}
+.box,.post,.composer{background:#14182a;border:1px solid #292e49;border-radius:17px;padding:16px;margin-bottom:15px}
+.nav button{display:block;width:100%;text-align:left;padding:14px;background:transparent;border-radius:10px;color:#b6bad0;font-weight:bold}
+.nav button:hover,.nav button.active{background:#30294d;color:white}
+h3{margin-top:0}
+small,.muted{color:#929bb9}
+.welcome{padding:25px;border-radius:18px;background:linear-gradient(110deg,#49318a,#23516b);margin-bottom:17px}
+.welcome h1{margin:0 0 7px;font-size:27px}
+.tabs{display:flex;gap:9px;margin:15px 0}
+.tabs button{background:#20243a;border-radius:20px;padding:9px 16px}
+.tabs button.active{background:#765be6}
+.avatar{width:40px;height:40px;border-radius:50%;background:linear-gradient(140deg,#8768ff,#e16cbd);display:grid;place-items:center;font-weight:bold;flex-shrink:0}
+.compose{display:flex;gap:10px}
+textarea{width:100%;background:#20243a;border:1px solid #353a57;border-radius:12px;padding:13px;color:white;resize:vertical;min-height:55px}
+.tools{display:flex;align-items:center;gap:10px;margin-top:12px;flex-wrap:wrap}
+.tools label{background:#242942;padding:9px;border-radius:9px;cursor:pointer}
+.tools input{display:none}
+.posthead{display:flex;align-items:center;gap:10px}
+.posthead .follow{margin-left:auto;background:#332953;padding:8px;border-radius:9px}
+.posttext{margin:16px 0;white-space:pre-wrap}
+.post img,.post video{width:100%;max-height:450px;object-fit:contain;background:#080a12;border-radius:12px}
+.actions{display:flex;gap:8px;border-top:1px solid #30344e;margin-top:14px;padding-top:12px;flex-wrap:wrap}
+.actions button{background:transparent;color:#b5b8ce;padding:7px}
+.actions button:hover{color:#dfbaff}
+.person{display:flex;align-items:center;gap:10px;margin:13px 0}
+.person button{background:#332953;padding:8px;border-radius:9px}
+.person div:nth-child(2){flex:1}
+.person small{display:block}
+#content{min-width:0}
+.video-feed{max-width:440px;margin:auto}
+.video-card{height:570px;background:#161a2d;border-radius:18px;overflow:hidden;margin-bottom:18px;position:relative}
+.video-card video{width:100%;height:100%;object-fit:cover}
+.video-caption{position:absolute;bottom:0;left:0;right:0;padding:25px 15px;background:linear-gradient(transparent,#000b)}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.community{padding:17px;background:#20243a;border-radius:13px;margin:10px 0}
+.empty{text-align:center;padding:35px;color:#a0a6c1}
+input,textarea{outline:none}
+input:focus,textarea:focus{border-color:#9478ff}
+.modal{position:fixed;inset:0;background:#000c;display:none;align-items:center;justify-content:center;z-index:30;padding:20px}
+.modal.show{display:flex}
+.modalbox{background:#171b30;border:1px solid #414365;border-radius:18px;padding:25px;width:min(400px,100%)}
+.modalbox input{width:100%;padding:12px;margin:8px 0;background:#242942;color:white;border:1px solid #414365;border-radius:10px}
+.modalbox button.primary{width:100%;margin-top:10px}
+.mobile{display:none}
+@media(max-width:950px){.layout{grid-template-columns:190px 1fr}.right{display:none}}
+@media(max-width:650px){
+header{padding:10px;gap:10px}.logo{font-size:19px}header input{display:none}
+.layout{display:block;padding:0 12px;margin:14px auto}.side,.right{display:none}
+.mobile{display:flex;position:fixed;bottom:0;left:0;right:0;background:#111426;padding:12px;justify-content:space-around;z-index:20;border-top:1px solid #343957}
+.mobile button{background:transparent;font-size:12px}
+#content{padding-bottom:70px}.video-card{height:65vh}
+}
+</style>
+</head>
+<body>
+
+<header>
+<div class="logo">✦ SCHOOLVERSE</div>
+<input id="search" placeholder="Search SCHOOLVERSE...">
+<button class="primary" onclick="login()">Join</button>
+</header>
+
+<div class="layout">
+<aside class="side">
+<div class="box nav">
+<button class="active" onclick="page('home',this)">🏠 Home</button>
+<button onclick="page('shorts',this)">🎬 Short videos</button>
+<button onclick="page('videos',this)">▶ Videos</button>
+<button onclick="page('groups',this)">🌎 Communities</button>
+<button onclick="page('messages',this)">💬 Messages</button>
+<button onclick="page('profile',this)">👤 Profile</button>
+<button onclick="page('saved',this)">🔖 Saved</button>
+</div>
+<div class="box">
+<h3>🌌 Your universe</h3>
+<p class="muted">Create. Share. Connect.</p>
+<button class="primary" onclick="login()">Create profile</button>
+</div>
+</aside>
+
+<main id="content">
+<section class="welcome">
+<h1>Welcome to SCHOOLVERSE ✨</h1>
+<p>Your school. Your friends. Your universe.</p>
+</section>
+
+<div class="tabs">
+<button class="active" onclick="filter('all',this)">For you</button>
+<button onclick="filter('following',this)">Following</button>
+</div>
+
+<div class="composer">
+<div class="compose">
+<div class="avatar" id="myAvatar">?</div>
+<textarea id="postText" placeholder="What's happening in your universe?"></textarea>
+</div>
+<div class="tools">
+<label>📷 Photo/video <input type="file" id="upload" accept="image/*,video/*"></label>
+<button class="primary" onclick="makePost()">Post ✨</button>
+</div>
+</div>
+<div id="feed"></div>
+</main>
+
+<aside class="right">
+<div class="box">
+<h3>🔥 Trending</h3>
+<p>#SchoolLife</p>
+<p>#CreativeClub</p>
+<p>#StudySquad</p>
+<p>#SCHOOLVERSE</p>
+</div>
+<div class="box">
+<h3>👥 Discover people</h3>
+<div id="suggestions"></div>
+</div>
+<div class="box">
+<h3>🛡 Safety first</h3>
+<p class="muted">Be kind. Keep personal information private. Report inappropriate content to a trusted adult.</p>
+</div>
+</aside>
+</div>
+
+<nav class="mobile">
+<button onclick="page('home')">🏠<br>Home</button>
+<button onclick="page('shorts')">🎬<br>Shorts</button>
+<button onclick="page('groups')">🌎<br>Groups</button>
+<button onclick="page('messages')">💬<br>Chat</button>
+<button onclick="page('profile')">👤<br>Profile</button>
+</nav>
+
+<div class="modal" id="loginModal">
+<div class="modalbox">
+<h2>Welcome to SCHOOLVERSE!</h2>
+<p class="muted">Create a local demo profile. Don't use your full name or private information.</p>
+<input id="name" placeholder="Display name">
+<input id="handle" placeholder="Username">
+<button class="primary" onclick="createAccount()">Create profile</button>
+<button onclick="document.getElementById('loginModal').classList.remove('show')" style="background:transparent;padding:12px">Cancel</button>
+</div>
+</div>
+
+<script>
+let user=JSON.parse(localStorage.getItem('sv_user')||'null');
+let posts=JSON.parse(localStorage.getItem('sv_posts')||'null')||[
+{id:1,name:'ArtClub',text:'Welcome to SCHOOLVERSE! 🎨 Share your creativity and meet new people!',likes:12,comments:2},
+{id:2,name:'StudySquad',text:'Study tip: Take short breaks between study sessions. 📚',likes:23,comments:4},
+{id:3,name:'PixelPilot',text:'What should we build for our next creative project? 🚀',likes:8,comments:1}
+];
+let following=JSON.parse(localStorage.getItem('sv_following')||'[]');
+let saved=JSON.parse(localStorage.getItem('sv_saved')||'[]');
+let filterMode='all';
+
+function store(){
+localStorage.setItem('sv_posts',JSON.stringify(posts));
+localStorage.setItem('sv_user',JSON.stringify(user));
+localStorage.setItem('sv_following',JSON.stringify(following));
+localStorage.setItem('sv_saved',JSON.stringify(saved));
+}
+function esc(s){
+return String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+}
+function login(){
+if(user){page('profile');return}
+document.getElementById('loginModal').classList.add('show');
+}
+function createAccount(){
+let n=document.getElementById('name').value.trim();
+let h=document.getElementById('handle').value.trim();
+if(n.length<2||h.length<3){alert('Enter a display name and a username of at least 3 characters.');return}
+user={name:n,handle:h};
+store();updateUser();
+document.getElementById('loginModal').classList.remove('show');
+page('profile');
+}
+function updateUser(){
+document.getElementById('myAvatar').textContent=user?user.name[0].toUpperCase():'?';
+document.querySelector('header .primary').textContent=user?'My profile':'Join';
+}
+function render(){
+let list=posts.filter(p=>filterMode==='all'||following.includes(p.name));
+document.getElementById('feed').innerHTML=list.length?list.map(p=>`
+<article class="post">
+<div class="posthead">
+<div class="avatar">${esc(p.name[0])}</div>
+<div><b>${esc(p.name)}</b><br><small> SCHOOLVERSE · Community post</small></div>
+${p.name!==user?.name?`<button class="follow" onclick="follow('${esc(p.name)}')">${following.includes(p.name)?'Following':'＋ Subscribe'}</button>`:''}
+</div>
+<div class="posttext">${esc(p.text)}</div>
+${p.media?`<${p.type==='video'?'video controls':'img'} src="${p.media}" ${p.type==='image'?'alt="Post image"':''}></${p.type==='video'?'video':'img'}>`:''}
+<div class="actions">
+<button onclick="like(${p.id})">💜 ${p.likes}</button>
+<button onclick="comment(${p.id})">💬 ${p.comments}</button>
+<button onclick="savePost(${p.id})">🔖 ${saved.includes(p.id)?'Saved':'Save'}</button>
+<button onclick="report()">⚑ Report</button>
+</div></article>`).join(''):'<div class="empty">No posts yet. Subscribe to someone or create a post!</div>';
+renderSuggestions();
+}
+function makePost(){
+if(!user){login();return}
+let text=document.getElementById('postText').value.trim();
+let file=document.getElementById('upload').files[0];
+if(!text&&!file){alert('Write something or attach a file!');return}
+if(file&&file.size>8*1024*1024){alert('Demo uploads must be smaller than 8 MB.');return}
+let p={id:Date.now(),name:user.name,text,likes:0,comments:0};
+if(file){
+p.media=URL.createObjectURL(file);
+p.type=file.type.startsWith('video')?'video':'image';
+}
+posts.unshift(p);
+document.getElementById('postText').value='';
+document.getElementById('upload').value='';
+store();render();
+}
+function like(id){
+let p=posts.find(x=>x.id===id);
+p.likes++;store();render();
+}
+function comment(id){
+if(!user){login();return}
+let c=prompt('Write a kind comment:');
+if(c&&c.trim()){
+let p=posts.find(x=>x.id===id);
+p.comments++;store();render();
+alert('Demo comment count updated. Real comments need a backend.');
+}
+}
+function follow(n){
+if(!user){login();return}
+following=following.includes(n)?following.filter(x=>x!==n):[...following,n];
+store();render();
+}
+function savePost(id){
+saved=saved.includes(id)?saved.filter(x=>x!==id):[...saved,id];
+store();render();
+}
+function report(){
+alert('Thanks for looking out for your community. This demo does not send reports. A real launch needs active adult moderation.');
+}
+function renderSuggestions(){
+document.getElementById('suggestions').innerHTML=['ArtClub','StudySquad','PixelPilot'].map(n=>`
+<div class="person"><div class="avatar">${n[0]}</div><div><b>${n}</b><small>Community member</small></div><button onclick="follow('${n}')">${following.includes(n)?'✓':'+'}</button></div>`).join('');
+}
+function filter(f,b){
+filterMode=f;
+document.querySelectorAll('.tabs button').forEach(x=>x.classList.remove('active'));
+b.classList.add('active');render();
+}
+function page(p){
+let c=document.getElementById('content');
+if(p==='home'){
+c.innerHTML=`<section class="welcome"><h1>Welcome back ✨</h1><p>Your school. Your friends. Your universe.</p></section>
+<div class="tabs"><button class="active" onclick="filter('all',this)">For you</button><button onclick="filter('following',this)">Following</button></div>
+<div class="composer"><div class="compose"><div class="avatar" id="myAvatar">${user?esc(user.name[0]):'?'}</div><textarea id="postText" placeholder="What's happening?"></textarea></div><div class="tools"><label>📷 Photo/video <input type="file" id="upload" accept="image/*,video/*"></label><button class="primary" onclick="makePost()">Post ✨</button></div></div><div id="feed"></div>`;
+render();
+}
+if(p==='shorts'){
+c.innerHTML=`<section class="welcome"><h1>🎬 SCHOOLVERSE Shorts</h1><p>Quick clips from your universe.</p></section>
+<div class="video-feed">
+<div class="video-card"><video controls playsinline src="https://interactive-examples.mdn.mozilla.net/media/cc0-videos/flower.mp4"></video><div class="video-caption"><b>🌸 Sample nature clip</b><br><small>Demo video</small></div></div>
+<div class="video-card"><video controls playsinline src="https://media.w3.org/2010/05/sintel/trailer.mp4"></video><div class="video-caption"><b>🎥 Sample video</b><br><small>Demo trailer</small></div></div>
+</div><p class="muted">These are sample videos. Real student video uploads require approved storage and moderation.</p>`;
+}
+if(p==='videos'){
+c.innerHTML=`<section class="welcome"><h1>▶ SCHOOLVERSE Videos</h1><p>Watch and share longer videos.</p></section><div class="box"><h3>Video library</h3><video controls style="width:100%;border-radius:12px" src="https://interactive-examples.mdn.mozilla.net/media/cc0-videos/flower.mp4"></video><p>Sample video preview</p></div>`;
+}
+if(p==='groups'){
+c.innerHTML=`<section class="welcome"><h1>🌎 Communities</h1><p>Find your people and join a group.</p></section>
+${[['🎨','Art & Design','Share your artwork and projects.'],['📚','Study Squad','Study tips and homework encouragement.'],['⚽','Sports Corner','Talk about school sports.'],['🎮','Game Creators','Share games and creative projects.']].map(g=>`<div class="community"><h3>${g[0]} ${g[1]}</h3><p>${g[2]}</p><button class="primary" onclick="alert('Group preview! Real memberships need a secure backend.')">Explore group</button></div>`).join('')}`;
+}
+if(p==='messages'){
+c.innerHTML=`<section class="welcome"><h1>💬 Messages</h1><p>Your conversations.</p></section><div class="box empty">Your demo inbox is empty.<br><br>Real messaging needs secure accounts, blocking, reporting and school-approved moderation.</div>`;
+}
+if(p==='profile'){
+c.innerHTML=`<section class="welcome"><h1>👤 Your profile</h1><p>Your SCHOOLVERSE identity.</p></section><div class="box"><div class="avatar">${user?esc(user.name[0]):'?'}</div><h2>${user?esc(user.name):'Guest'}</h2><p class="muted">${user?'@'+esc(user.handle):'No demo profile yet'}</p><p>${posts.filter(x=>user&&x.name===user.name).length} posts · ${following.length} subscriptions</p><button class="primary" onclick="login()">Create profile</button></div>`;
+}
+if(p==='saved'){
+c.innerHTML=`<section class="welcome"><h1>🔖 Saved posts</h1></section><div id="feed"></div>`;
+let list=posts.filter(x=>saved.includes(x.id));
+document.getElementById('feed').innerHTML=list.map(x=>`<div class="post"><b>${esc(x.name)}</b><p>${esc(x.text)}</p></div>`).join('')||'<div class="empty">No saved posts yet.</div>';
+}
+}
+document.getElementById('search').addEventListener('input',e=>{
+let q=e.target.value.toLowerCase();
+let list=posts.filter(x=>(x.name+' '+x.text).toLowerCase().includes(q));
+document.getElementById('feed').innerHTML=list.map(x=>`<div class="post"><b>${esc(x.name)}</b><p>${esc(x.text)}</p></div>`).join('')||'<div class="empty">No results found.</div>';
+});
+updateUser();render();
+</script>
+</body>
+</html>
